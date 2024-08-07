@@ -12,7 +12,7 @@ export default function Home() {
   ])
   const [message, setMessage] = useState('')
   //Kit:add loading state...
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false) 
 
   const sendMessage = async () => {
     //if (!message.trim()) return;  // Don't send empty messages- version 1
