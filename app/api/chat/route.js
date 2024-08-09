@@ -4,6 +4,15 @@ import OpenAI from 'openai' // Import OpenAI library for interacting with the Op
 // System prompt for the AI, providing guidelines on how to respond to users
 const systemPrompt = "Hello, and thank you for that question. Here is my answer..."// Use your own system prompt here
 
+//SIMPLE POST request you can test with postman
+/*
+export function POST(req) {
+  //code along code 
+  console.log("POST api/chat")
+  return NextResponse.json({message: "Hello from the server side"}) 
+}
+*/
+
 // POST function to handle incoming requests
 export async function POST(req) {
   const openai = new OpenAI() // Create a new instance of the OpenAI client
@@ -12,9 +21,17 @@ export async function POST(req) {
   // Create a chat completion request to the OpenAI API
   const completion = await openai.chat.completions.create({
     messages: [{role: 'system', content: systemPrompt}, ...data], // Include the system prompt and user messages
-    model: 'gpt-3.5-turbo', // Specify the model to use
+
+    //can be hardcoded like so:
+    /*
+     messages: [{"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "What can you do?"},
+      {"role": "assistant", "content": "I can provide simple yet limited responses as I am under development and maintenance."},],
+    */
+    model: 'gpt-4o-mini', // Specify the model to use
     stream: true, // Enable streaming responses
   })
+  //console.log(completion.choices[0]);
 
   // Create a ReadableStream to handle the streaming response
   const stream = new ReadableStream({
@@ -39,3 +56,5 @@ export async function POST(req) {
 
   return new NextResponse(stream) // Return the stream as the response
 }
+
+POST();
